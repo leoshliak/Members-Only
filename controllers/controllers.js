@@ -16,15 +16,17 @@ exports.getHomePage = (req, res) => {
 }
 
 exports.getSignUpPage = (req, res) => {
-    renderWithLayout(res, 'pages/sign-up', { title: 'Sign Up' });
+    renderWithLayout(res, 'pages/sign-up', { 
+        title: 'Sign Up',
+        messages: req.flash('error')
+    });
 }
 
 exports.postSignUp = async (req, res, next) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
      await queries.createUser(
       req.body.username,
-      hashedPassword,
+      req.body.password,  // Send plain password, createUser will hash it
       req.body.name,
       req.body.surname,
       req.body.email
@@ -35,13 +37,21 @@ exports.postSignUp = async (req, res, next) => {
   }
 }
 
-exports.postLogIn = (req, res) => {
-  return passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/sign-up',
-    failureFlash: true
-  });
-}
+exports.postLogIn = (req, res, next) => {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    
+    if (!user) { 
+      req.flash('error', info.message);
+      return res.redirect('/sign-up');
+    }
+    
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+};
 
 
 exports.getLogOut = (req, res) => {

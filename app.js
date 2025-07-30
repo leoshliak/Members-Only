@@ -29,26 +29,38 @@ app.use(session({
     cookie: { maxAge: 14 * 24 * 60 * 60 * 1000 } // 2 weeks
 }));
 
+const flash = require('connect-flash');
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 
 passport.use(
-  new LocalStrategy(async (username, password, done ) => {
-    try{const user = await queries.getUserByName(username);
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username.' });
-    }
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      console.log('Attempting login for username:', username);
+      const user = await queries.getUserByName(username);
+      
+      if (!user) {
+        console.log('User not found');
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      
+      const isMatch = await bcrypt.compare(password, user.password);
+      console.log(password, user.password);
 
-    const isMatch = await bcrypt.compare(password, user.password)
+      console.log('Password match:', isMatch);
 
-    if(!isMatch) {
+      if (!isMatch) {
         return done(null, false, { message: 'Incorrect password.' });
-    }
-    return done(null, user);
-}
-    catch (error) {
-        return done(error);
+      }
+      
+      console.log('Login successful');
+      return done(null, user);
+    } catch (error) {
+      console.error('Login error:', error);
+      return done(error);
     }
   })
 );
