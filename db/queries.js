@@ -27,7 +27,7 @@ async function getUserById(id) {
     }
 }
 
-async function createUser(username, password, name, surname, email, membershipStatus = 'active') {
+async function createUser(username, password, name, surname, email, membershipStatus = false) {
     try {
         console.log('Creating user with:', { username, name, surname, email }); // Log input data
         const hashedPassword = await bcrypt.hash(password, 10);

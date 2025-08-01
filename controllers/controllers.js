@@ -18,7 +18,8 @@ exports.getHomePage = (req, res) => {
 exports.getSignUpPage = (req, res) => {
     renderWithLayout(res, 'pages/sign-up', { 
         title: 'Sign Up',
-        messages: req.flash('error')
+        messages: req.flash('error'),
+        user: req.user
     });
 }
 

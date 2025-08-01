@@ -4,9 +4,14 @@
     </div>
     <nav id="nav">
         <ul>
-            <li><a href=""></a>Link 1</li>
-             <li><a href=""></a>Link 2</li>
-              <li><a href=""></a>Link 3</li>
+            <% if(locals.user) { %>
+                <li><a href="">New Message</a></li>
+                <li><a href="">Get Membership</a></li>
+                <li><a href="/log-out">Log Out</a></li>
+            <% } else { %>
+                <li><a href="/">Log In</a></li>
+                <li><a href="/sign-up">Sign Up</a></li>
+            <% } %>
         </ul>
     </nav>
 </header>
