@@ -23,6 +23,42 @@ exports.getSignUpPage = (req, res) => {
     });
 }
 
+exports.getLogInPage = (req, res) => {
+    renderWithLayout(res, 'pages/log-in', {}, {
+        title: 'Log In' } );
+  }
+
+  exports.getMembershipPage = (req, res) => {
+    renderWithLayout(res, 'pages/membership', {
+        title: 'Membership',
+        user: req.user
+    })
+  }
+
+exports.postMembership = async (req, res, next) => {
+    try {
+        // Check if user is authenticated
+        if (!req.user) {
+            return res.redirect('/log-in');
+        }
+
+        // Validate that user typed "*"
+        const memberInput = req.body['member-input'];
+        if (memberInput !== '*') {
+            req.flash('error', 'You must type "*" to become a member!');
+            return res.redirect('/membership');
+        }
+
+        const userId = req.user.id; 
+        console.log('Changing membership status for user ID:', userId);
+        await queries.changeMembershipStatus(userId, true);
+        res.redirect('/'); // Redirect to home after updating
+    } catch (error) {
+        console.error('Error changing membership status:', error);
+        return next(error);
+    }
+}
+
 exports.postSignUp = async (req, res, next) => {
   try {
      await queries.createUser(

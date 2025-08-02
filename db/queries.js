@@ -44,8 +44,24 @@ async function createUser(username, password, name, surname, email, membershipSt
     }
 }
 
+async function changeMembershipStatus(userId, status) {
+    try {
+        console.log('Changing membership status for user ID:', userId, 'to status:', status);
+        const result = await pool.query(
+            'UPDATE users SET membership_status = $1 WHERE id = $2',
+            [status, userId]
+        );
+        console.log('Membership status changed successfully');
+        return true; // Indicate success
+    } catch (error) {
+        console.error('Error changing membership status:', error);
+        throw error;
+    }
+}
+
 module.exports = {
    getUserByName,
    getUserById,
    createUser,
+   changeMembershipStatus,
 }

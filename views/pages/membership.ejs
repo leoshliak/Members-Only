@@ -1,0 +1,27 @@
+<div class="membership-form">
+        <% if (locals.user.membership_status) { %>
+            <p>You are already a member!</p> 
+            <% } else { %>
+            <div class="membership-form">
+    <h1>Became member</h1>
+    <p>To get membership status just type "*" in input field and click submit button</p>
+    <form action="/membership" method="POST">
+        <label for="member-input">
+            <input id="member-input" name="member-input" placeholder="Type * to become a member" type="text" required />
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+            <% } %>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.membership-form form');
+            form.addEventListener('submit', (event) => {
+                const input = form.querySelector('#member-input').value;
+                if (input !== '*') {
+                    event.preventDefault();
+                    alert('You must type "*" to become a member!');
+                }
+            });
+        });
+    </script>
+</div>
