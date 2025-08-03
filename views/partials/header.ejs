@@ -6,9 +6,9 @@
         <ul>
             <li><a href="/">Home</a></li>
             <% if(locals.user) { %>
-                <li><a href="">New Message</a></li>
                 <% if(locals.user.membership_status){ %>
-                   <li><a href="">View Messages</a></li>
+                    <li><a href="/new-message">New Message</a></li>
+                   <li><a href="/messages">View Messages</a></li>
                     <% } else { %>
                          <li><a href="/membership">Get Membership</a></li>
                         <% } %>

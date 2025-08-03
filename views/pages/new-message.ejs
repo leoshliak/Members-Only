@@ -1,0 +1,23 @@
+<div class="new-message-con">
+    <% if(locals.user){ %>
+       <% if(locals.user.membership_status) { %>
+            <h1><%= title %></h1>
+    <form action="/new-message" method="POST">
+        <label for="title">Title</label>
+        <input id="title" name="title" placeholder="Message Title" type="text" required />
+        
+        <label for="content">Content</label>
+        <textarea id="content" name="content" placeholder="Write your message here..." required></textarea>
+        
+        <button type="submit">Send Message</button>
+    </form>
+            <% } else { %>
+            <p>You need to be a member to send messages.</p>
+            <a href="/membership">Get Membership</a>
+                <% } %>
+        <% } else { %>
+        <p>You must be logged in to send a message.</p>
+        <a href="/log-in">Log In</a>
+            <% } %>
+    
+</div>

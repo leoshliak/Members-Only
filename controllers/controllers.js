@@ -99,3 +99,45 @@ exports.getLogOut = (req, res) => {
     res.redirect('/');
   });
 }
+
+exports.getNewMessagePage = (req, res) => {
+  renderWithLayout(res, 'pages/new-message', {
+    title: 'New Message',
+    user: req.user
+  });
+}
+
+exports.postNewMessage = async (req, res, next) => {
+  try {
+    // Check if user is authenticated
+    if (!req.user) {
+      return res.redirect('/log-in');
+    }
+
+    const  title = req.body.title;
+    const text = req.body.content;
+    const dateAndTime = new Date();
+    const writtenBy = req.user.username;
+    const userId = req.user.id;
+
+    await queries.addMessage(userId, title, text, dateAndTime, writtenBy);
+    res.redirect('/'); // Redirect to home after adding message
+  } catch (error) {
+    console.error('Error adding message:', error);
+    return next(error);
+  }
+}
+
+exports.getMessages = async (req, res, next) => {
+  try {
+    const messages = await queries.getMessages();
+    renderWithLayout(res, 'pages/messages', {
+      title: 'Messages',
+      messages: messages,
+      user: req.user
+    });
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+    return next(error);
+  }
+}

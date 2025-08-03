@@ -18,4 +18,10 @@ router.get('/membership', controllers.getMembershipPage);
 
 router.post('/membership', controllers.postMembership);
 
+router.get('/new-message', controllers.getNewMessagePage);
+
+router.post('/new-message', controllers.postNewMessage);
+
+router.get('/messages', controllers.getMessages);
+
 module.exports = router;

@@ -59,9 +59,37 @@ async function changeMembershipStatus(userId, status) {
     }
 }
 
+async function addMessage(userId, title, text, dateAndTime, writtenBy) {
+    try {
+        console.log('Adding message for user ID:', userId, 'with title:', title);
+        const result = await pool.query(
+            'INSERT INTO messages (title, text, date_and_time, written_by, written_by_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [title, text, dateAndTime, writtenBy, userId]
+        );
+        console.log('Message added:', result.rows[0]);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error adding message:', error);
+        throw error;
+    }
+}
+
+async function getMessages() {
+    try {
+        const result = await pool.query('SELECT * FROM messages ORDER BY date_and_time DESC');
+        console.log('Fetched messages:', result.rows);
+        return result.rows;
+    } catch (error) {
+        console.error('Error fetching messages:', error);
+        throw error;
+    }
+}
+
 module.exports = {
    getUserByName,
    getUserById,
    createUser,
    changeMembershipStatus,
+   addMessage,
+   getMessages
 }
