@@ -9,6 +9,7 @@
     <p><%= title  %></p>
     <% if(locals.user) { %>
            <h2>Welcome back <%= user.username %></h2>
+           <a href="/profile/<%= user.id %>">View profile</a>
            <a href="/log-out">Log Out</a>
         <% } else {  %>
             <div class="log-in-form">
