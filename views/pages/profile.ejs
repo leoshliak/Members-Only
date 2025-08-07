@@ -1,0 +1,51 @@
+<div class="profile-con">
+    <h2>Profile Details</h2>
+    
+    <% if(user.id === currentUser.id) { %>
+        <form action="/profile/<%= user.id %>" method="POST">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="<%= user.username %>" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="<%= user.email %>" required />
+          <label for="first_name">First Name:</label>
+          <input type="text" id="first_name" name="first_name" value="<%= user.first_name %>" required />
+          <label for="last_name">Last Name:</label>
+          <input type="text" id="last_name" name="last_name" value="<%= user.last_name %>" required />
+          <button id="update" type="submit" disabled>Update</button>
+        </form>
+          <script>
+          const updateBtn = document.getElementById('update');
+          const inputFields = document.querySelectorAll('input[type="text"], input[type="email"]');
+            inputFields.forEach(input => {
+                input.addEventListener('input', () => {
+                    updateBtn.disabled = false;
+                    if (input.value === input.defaultValue && input.value !== '') {
+                        updateBtn.disabled = true;
+                    }
+                });
+            });
+          </script>
+        <% } else { %>
+        <p>Username: <%= user.username %></p>
+        <p>Email: <%= user.email %></p>
+        <p>First Name: <%= user.first_name %></p>
+        <p>Last Name: <%= user.last_name %></p>
+            <% } %>
+
+            <div class="user-messages">
+                <h3>Messages</h3>
+                <% if(messages.length > 0) { %>
+                    <ul>
+                        <% messages.forEach(message => { %>
+                            <li>
+                                <h2><%= message.title %></h2>
+                    <p><%= message.text %></p>
+                    <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
+                            </li>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <p>No messages found.</p>
+                <% } %>
+            </div>
+</div>
