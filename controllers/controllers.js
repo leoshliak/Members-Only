@@ -141,3 +141,45 @@ exports.getMessages = async (req, res, next) => {
     return next(error);
   }
 }
+
+exports.getProfilePage = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await queries.getUserById(userId);
+    const userMessages = await queries.getUserMessages(userId);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    renderWithLayout(res, 'pages/profile', {
+      title: 'Profile',
+      user: user,
+      currentUser: req.user,
+      messages: userMessages,
+    });
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    return next(error);
+  }
+}
+
+exports.updateUserProfile = async (req, res, next) => {
+  try {
+    const userId = req.params.id; // Get ID from URL parameter
+    if (userId != req.user.id) {
+      return res.status(403).send('Unauthorized');
+    }
+    
+    const { username, first_name, last_name, email } = req.body;
+    console.log('Updating profile with data:', req.body);
+
+    await queries.updateUserData(userId, username, first_name, last_name, email);
+    req.flash('success', 'Profile updated successfully');
+    res.redirect(`/profile/${userId}`);
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    req.flash('error', 'Error updating profile');
+    return next(error);
+  }
+}
