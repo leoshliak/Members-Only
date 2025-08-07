@@ -24,4 +24,8 @@ router.post('/new-message', controllers.postNewMessage);
 
 router.get('/messages', controllers.getMessages);
 
+router.get('/profile/:id', controllers.getProfilePage);
+
+router.post('/profile/:id', controllers.updateUserProfile);
+
 module.exports = router;
