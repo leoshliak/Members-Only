@@ -85,11 +85,51 @@ async function getMessages() {
     }
 }
 
+async function getUserMessages(userId) {
+    try {
+       await pool.query('SELECT * FROM messages WHERE written_by_id = $1 ORDER BY date_and_time DESC', [userId]);
+        const result = await pool.query('SELECT * FROM messages WHERE written_by_id = $1 ORDER BY date_and_time DESC', [userId]);
+        console.log('Fetched user messages:', result.rows);
+        return result.rows; 
+    } catch (error) {
+        console.error('Error fetching user messages:', error);
+        throw error;
+    }
+}
+
+async function updateUserData(userId, username, first_name, last_name, email) {
+    try {
+        console.log('Updating user data for user ID:', userId, 'with data:', { username, first_name, last_name, email });
+        
+        // First update the user
+        const userResult = await pool.query(
+            'UPDATE users SET username = $1, first_name = $2, last_name = $3, email = $4 WHERE id = $5 RETURNING *',
+            [username, first_name, last_name, email, userId]
+        );
+
+        // Then update any messages written by this user
+        if (userResult.rows[0]) {
+            await pool.query(
+                'UPDATE messages SET written_by = $1 WHERE written_by_id = $2',
+                [username, userId]
+            );
+        }
+
+        console.log('User data updated successfully');
+        return userResult.rows[0];
+    } catch (error) {
+        console.error('Error updating user data:', error);
+        throw error;
+    }
+}
+
 module.exports = {
    getUserByName,
    getUserById,
    createUser,
    changeMembershipStatus,
    addMessage,
-   getMessages
+   getMessages,
+   getUserMessages,
+   updateUserData,
 }
