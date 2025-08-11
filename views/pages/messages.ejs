@@ -9,6 +9,11 @@
                     <h2><%= message.title %></h2>
                     <p><%= message.text %></p>
                     <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
+                    <% if (locals.user.admin) { %>
+                        <form action="/messages/<%= message.id %>" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    <% } %>
                 </li>
             <% }) %>
         </ul>
