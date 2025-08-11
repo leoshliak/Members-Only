@@ -28,4 +28,9 @@ router.get('/profile/:id', controllers.getProfilePage);
 
 router.post('/profile/:id', controllers.updateUserProfile);
 
+router.post('/profile/message/:id', controllers.deleteMessageOwn);
+
+router.post('/messages/:id', controllers.deleteMessageAdmin);
+
+
 module.exports = router;
