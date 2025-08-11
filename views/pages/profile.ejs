@@ -12,6 +12,7 @@
           <label for="last_name">Last Name:</label>
           <input type="text" id="last_name" name="last_name" value="<%= user.last_name %>" required />
           <button id="update" type="submit" disabled>Update</button>
+            <p><small>Note: You can only update your own profile.</small></p>
         </form>
           <script>
           const updateBtn = document.getElementById('update');
@@ -41,7 +42,13 @@
                                 <h2><%= message.title %></h2>
                     <p><%= message.text %></p>
                     <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
-                            </li>
+                            
+                       <%   if(user.id === currentUser.id) { %>
+                            <form action="/profile/message/<%= message.id %>" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        <% } %> 
+                    </li>
                         <% }); %>
                     </ul>
                 <% } else { %>
