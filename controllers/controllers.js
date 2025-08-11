@@ -183,3 +183,42 @@ exports.updateUserProfile = async (req, res, next) => {
     return next(error);
   }
 }
+
+exports.deleteMessageAdmin = async (req, res, next) => {
+  try {
+    const messageId = req.params.id; 
+    if (!req.user || !req.user.admin) {
+      return res.status(403).send('Unauthorized');
+    }
+    await queries.deleteMessage(messageId);
+    req.flash('success', 'Message deleted successfully');
+    res.redirect('/messages'); 
+  } catch (error) {
+    console.error('Error deleting message:', error);
+    req.flash('error', 'Error deleting message');
+    return next(error);
+  }
+}
+
+exports.deleteMessageOwn = async (req, res, next) => {
+  try {
+    const messageId = req.params.id; 
+    const message = await queries.getMessageById(messageId);
+    
+    console.log('User ID:', req.user.id);
+    console.log('Message written by ID:', message.written_by_id);
+    console.log('Deleting message with ID:', messageId);
+    
+    if (parseInt(req.user.id) !== parseInt(message.written_by_id)) {
+      return res.status(403).send('Not your message');
+    }
+    
+    await queries.deleteMessage(messageId);
+    req.flash('success', 'Message deleted successfully');
+    res.redirect('/profile/' + req.user.id); 
+  } catch (error) {
+    console.error('Error deleting message:', error);
+    req.flash('error', 'Error deleting message');
+    return next(error);
+  }
+}
