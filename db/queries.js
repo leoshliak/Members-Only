@@ -123,6 +123,30 @@ async function updateUserData(userId, username, first_name, last_name, email) {
     }
 }
 
+async function deleteMessage(messageId) {
+    try {
+        await pool.query('DELETE FROM messages WHERE id = $1', [messageId]);
+        console.log('Message deleted successfully');
+    } catch (error) {
+        console.error('Error deleting message:', error);
+        throw error;
+    }
+}
+
+async function getMessageById(messageId) {
+    try {
+        const result = await pool.query('SELECT * FROM messages WHERE id = $1', [messageId]);
+        if (result.rows.length === 0) {
+            throw new Error('Message not found');
+        }
+        return result.rows[0];
+    } catch (error) {
+        console.error('Error fetching message by ID:', error);
+        throw error;
+    }
+    
+}
+
 module.exports = {
    getUserByName,
    getUserById,
@@ -132,4 +156,6 @@ module.exports = {
    getMessages,
    getUserMessages,
    updateUserData,
+   deleteMessage,
+   getMessageById
 }
