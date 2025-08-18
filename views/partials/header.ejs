@@ -8,9 +8,11 @@
             <% if(locals.user) { %>
                 <% if(locals.user.membership_status){ %>
                     <li><a href="/new-message">New Message</a></li>
-                   <li><a href="/messages">View Messages</a></li>
+                <!-- <li><a href="/messages">View Messages</a></li>-->
+                   <a href="/profile/<%= user.id %>">View profile</a>
                     <% } else { %>
                          <li><a href="/membership">Get Membership</a></li>
+                         <a href="/profile/<%= user.id %>">View profile</a>
                         <% } %>
                 <li><a href="/log-out">Log Out</a></li>
             <% } else { %>
