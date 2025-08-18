@@ -9,8 +9,30 @@
     <p><%= title  %></p>
     <% if(locals.user) { %>
            <h2>Welcome back <%= user.username %></h2>
-           <a href="/profile/<%= user.id %>">View profile</a>
-           <a href="/log-out">Log Out</a>
+           <% if(locals.user.membership_status){ %>
+          <% if (locals.messages && locals.messages.length > 0) { %>
+        <h1>Messages</h1>
+        <ul>
+            <% locals.messages.forEach(function(message) { %>
+                <li>
+                    <h2><%= message.title %></h2>
+                    <p><%= message.text %></p>
+                    <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
+                    <% if (locals.user.admin) { %>
+                        <form action="/messages/<%= message.id %>" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    <% } %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p>No messages available.</p>
+    <% } %>
+          <% } else { %>
+            <p>You need to be a member to view messages.</p>
+            <a href="/membership">Get Membership</a>
+            <% } %>
         <% } else {  %>
             <div class="log-in-form">
 <h1>please log in</h1>
