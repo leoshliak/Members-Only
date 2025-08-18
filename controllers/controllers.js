@@ -11,8 +11,14 @@ function renderWithLayout(res, view, options = {}) {
   });
 }
 
-exports.getHomePage = (req, res) => {
-    renderWithLayout(res, 'pages/home', { title: 'Home', user: req.user });
+exports.getHomePage = async (req, res) => {
+  try {
+    const messages = await queries.getMessages();
+    renderWithLayout(res, 'pages/home', { title: 'Home', user: req.user, messages: messages });
+  } catch (error) {
+    console.error('Error rendering home page:', error);
+    res.status(500).send('Internal Server Error');
+  }
 }
 
 exports.getSignUpPage = (req, res) => {
