@@ -1,4 +1,5 @@
 <header>
+    <div class="header-con">
     <div class="logo">
         <h1>Members Only</h1>
     </div>
@@ -9,10 +10,10 @@
                 <% if(locals.user.membership_status){ %>
                     <li><a href="/new-message">New Message</a></li>
                 <!-- <li><a href="/messages">View Messages</a></li>-->
-                   <a href="/profile/<%= user.id %>">View profile</a>
+                  <li><a href="/profile/<%= user.id %>">View profile</a></li> 
                     <% } else { %>
                          <li><a href="/membership">Get Membership</a></li>
-                         <a href="/profile/<%= user.id %>">View profile</a>
+                         <li><a href="/profile/<%= user.id %>">View profile</a></li>
                         <% } %>
                 <li><a href="/log-out">Log Out</a></li>
             <% } else { %>
@@ -21,4 +22,5 @@
             <% } %>
         </ul>
     </nav>
+</div>
 </header>
