@@ -36,18 +36,20 @@
             <div class="user-messages">
                 <h3>Messages</h3>
                 <% if(messages.length > 0) { %>
-                    <ul>
+                    <ul class="messages-list">
                         <% messages.forEach(message => { %>
-                            <li>
-                                <h2><%= message.title %></h2>
-                    <p><%= message.text %></p>
-                    <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
-                            
-                       <%   if(user.id === currentUser.id) { %>
+                            <li class="message-item">
+                               <div class="message-top"> 
+                                <h3><%= message.title %></h3>
+                                <%   if(user.id === currentUser.id) { %>
                             <form action="/profile/message/<%= message.id %>" method="POST">
-                                <button type="submit">Delete</button>
+                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                             </form>
                         <% } %> 
+                            </div>
+                    <p class="message-text"><%= message.text %></p>
+                    <p class="message-inf">Written by: <a class="written-by" href="/profile/<%= message.written_by_id %>"><strong><%= message.written_by %></a></strong> on <span class="message-date"><%= message.date_and_time.toLocaleDateString() %></span></p>
+
                     </li>
                         <% }); %>
                     </ul>
