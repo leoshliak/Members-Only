@@ -6,26 +6,33 @@
     <title>Members Only</title>
 </head>
 <body>
-    <p><%= title  %></p>
     <% if(locals.user) { %>
-           <h2>Welcome back <%= user.username %></h2>
+        <section class="welcome">
+           <h2>Welcome back, <%= user.username %></h2>
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto minima distinctio fugiat!</p>
+        </section>
            <% if(locals.user.membership_status){ %>
           <% if (locals.messages && locals.messages.length > 0) { %>
-        <h1>Messages</h1>
-        <ul>
+         <section class="messages">
+        <h1>Messages:</h1>
+        <ul class="messages-list">
             <% locals.messages.forEach(function(message) { %>
-                <li>
-                    <h2><%= message.title %></h2>
-                    <p><%= message.text %></p>
-                    <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
-                    <% if (locals.user.admin) { %>
+                <li class="message-item">
+                    <div class="message-top">
+                    <h3><%= message.title %></h3>
+                   <% if (locals.user.admin) { %>
                         <form action="/messages/<%= message.id %>" method="POST">
-                            <button type="submit">Delete</button>
+                            <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </form>
                     <% } %>
+                </div>
+                    <p class="message-text"><%= message.text %></p>
+                    <p class="message-inf">Written by: <a class="written-by" href="/profile/<%= message.written_by_id %>"><strong><%= message.written_by %></a></strong> on <span class="message-date"><%= message.date_and_time.toLocaleDateString() %></span></p>
+                    
                 </li>
             <% }) %>
         </ul>
+        </section>
     <% } else { %>
         <p>No messages available.</p>
     <% } %>
