@@ -3,9 +3,9 @@
         <% if(locals.user.membership_status){ %>
           <% if (locals.messages && locals.messages.length > 0) { %>
         <h1>Messages</h1>
-        <ul>
+        <ul class="messages-list">
             <% locals.messages.forEach(function(message) { %>
-                <li>
+                <li class="message-item">
                     <h2><%= message.title %></h2>
                     <p><%= message.text %></p>
                     <p><small>Written by: <strong><%= message.written_by %></strong> on <%= message.date_and_time.toLocaleDateString() %></small></p>
