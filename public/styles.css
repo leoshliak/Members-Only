@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-size: 18px;
+  font-family: 'Inter', Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 0rem 1.2rem;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px #0000001a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.header-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+header nav {
+  padding-right: 10px;
+}
+
+header nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 30px;
+}
+
+header nav ul li a {
+    font-size: 1.2rem;
+    color: #505050;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+header nav ul li a:hover {
+    color: #007BFF;
+}
+
+ li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    margin-top: 70px
+}
+
+.main-wrap {
+    max-width: 1450px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.welcome {
+    width: 100%;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.welcome h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome p {
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.messages, .user-messages {
+    width: 100%;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.messages h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.messages-list {
+    width: 100%;
+    max-width: 1000px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.message-item {
+    width: 100%;
+    padding: 1.1rem;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.4px;
+}
+
+.message-item .message-text {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    letter-spacing: 0.2px;
+}
+
+.message-item form button {
+    cursor: pointer;
+    font-size: 1.8rem;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.fa-trash-can {
+    color: #ff4d4d;
+    transition: color 0.3s ease;
+}
+
+.fa-trash-can:hover {
+    color: #ff1a1a;
+}
+
+.message-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message-inf {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 15px;
+}
+
+.written-by {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-right: 3px;
+    margin-left: 2px;
+}
+
+.written-by:hover {
+    text-decoration: underline;
+}
+
+.message-date {
+    color: #505050 !important;
+    font-size: 1.2rem !important;
+    margin-left: 3px !important;
+}
+
+.profile-con {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+.user-messages h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
