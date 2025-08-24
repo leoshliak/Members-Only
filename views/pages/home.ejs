@@ -37,20 +37,26 @@
         <p>No messages available.</p>
     <% } %>
           <% } else { %>
+            <div class="member-need">
             <p>You need to be a member to view messages.</p>
             <a href="/membership">Get Membership</a>
+            </div>
             <% } %>
         <% } else {  %>
             <div class="log-in-form">
-<h1>please log in</h1>
-    <form action="/log-in" method="POST">
-      <label for="username">Username</label>
-      <input id="username" name="username" placeholder="username" type="text" required />
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" required />
+<h1>Please, log in</h1>
+    <form class="login-form" action="/log-in" method="POST">
+      <div class="input-group">
+      <label for="username">Username:</label>
+      <input id="username" name="username" placeholder="username" type="text" />
+      </div>
+      <div class="input-group">
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" />
+      </div>
       <button type="submit">Log In</button>
     </form>
-    <p>Don't have an account? <a href="/sign-up">Sign Up</a></p>
+    <p class="sign-text">Don't have an account? <a href="/sign-up">Sign Up</a></p>
 </div>
         <% }  %>
 </body>
