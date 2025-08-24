@@ -1,6 +1,6 @@
 <div class="membership-form">
         <% if (locals.user.membership_status) { %>
-            <p>You are already a member!</p> 
+            <p style="text-align: center;">You are already a member!</p> 
             <% } else { %>
             <div class="membership-form">
     <h1>Became member</h1>
@@ -11,6 +11,7 @@
         </label>
         <button type="submit">Submit</button>
     </form>
+    </div>
             <% } %>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
