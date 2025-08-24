@@ -2,14 +2,16 @@
     <% if(locals.user){ %>
        <% if(locals.user.membership_status) { %>
             <h1><%= title %></h1>
-    <form action="/new-message" method="POST">
-        <label for="title">Title</label>
+    <form class="message-add" action="/new-message" method="POST">
+        <div class="input-group">
+        <label for="title">Title:</label>
         <input id="title" name="title" placeholder="Message Title" type="text" required />
-        
-        <label for="content">Content</label>
+        </div>
+        <div class="input-group">
+        <label for="content">Content:</label>
         <textarea id="content" name="content" placeholder="Write your message here..." required></textarea>
-        
-        <button type="submit">Send Message</button>
+        </div>
+        <button id="send" type="submit">Send Message</button>
     </form>
             <% } else { %>
             <p>You need to be a member to send messages.</p>
