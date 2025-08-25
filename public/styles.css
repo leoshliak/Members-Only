@@ -55,6 +55,10 @@ header nav ul li a:hover {
     color: #007BFF;
 }
 
+.menu-icon {
+    display: none;
+}
+
  li {
     list-style: none;
 }
@@ -190,8 +194,13 @@ main {
 }
 
 .user-messages h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.user-message h2 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .profile-con h2 {
@@ -467,10 +476,193 @@ main {
     letter-spacing: 0.3px;
 }
 
+.new-message-con {
+    min-height: calc(100vh - 250px);
+    justify-content: center;
+}
+
+@media (max-width: 900px) {
+    .logo {
+        font-size: 1rem;
+    }
+
+    header nav ul {
+        gap: 20px;
+    }
+
+    header nav ul li a {
+        font-size: 1.1rem;
+    }
+
+    .welcome h2, .messages h1 {
+    font-size: 2.3rem;
+}
+
+.welcome p {
+    font-size: 1.3rem;
+}
+
+.message-item h3 {
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+}
+
+@media (max-width: 800px) {
+    .profile-edit .login-form, .signup-f,
+    .profile-edit, .message-add, .login-form {
+        min-width: 85%;
+    }
+
+    .message-item h3 {
+        font-size: 1.5rem;
+    }
+
+       header nav {
+        position: fixed;
+        top: -50%;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: #eaeaea;
+        box-shadow: 0 2px 4px #0000001a;
+        transition: all .3s ease 0s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 1rem;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 999;
+    }
+
+        header nav ul {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        gap: 40px;
+    }
+
+        header nav ul li a {
+        font-size: 1.2rem;
+    }
+
+        .menu-icon {
+        z-index: 5;
+        display: block;
+        position: relative;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .menu-icon span, .menu-icon:before, .menu-icon:after {
+        content: "";
+        position: absolute;
+        height: 3.5px;
+        width: 32px;
+        transition: all .2s ease 0s;
+        background-color: #000000;
+        left: 50%;
+        margin-left: -15px;
+    }
+
+        .menu-icon::before {
+        top: 50%;
+        margin-top: 7px;
+    }
+
+    .menu-icon span {
+        top: 50%;
+        transform: scale(1) translateY(-50%);
+        width: 32px;
+        left: 50%;
+        margin-left: -15px;
+    }
+
+        .menu-icon::after {
+        top: 50%;
+        margin-top: -11px;
+    }
+
+        .menu-icon.active:before {
+        top: 50%;
+        transform: rotate(45deg);
+        margin-top: -1.5px;
+    }
+
+        .menu-icon.active span {
+        transform: scale(0) translateY(-50%);
+    }
+
+        .menu-icon.active:after {
+        top: 50%;
+        transform: rotate(-45deg);
+        margin-top: -1.5px;
+    }
+
+        nav.active {
+        top: 70px;
+    }
+    
+}
+
 @media (max-width: 700px) {
     .profile-edit .login-form, .signup-f,
     .profile-edit, .message-add, .login-form {
         min-width: 100%;
         padding: 0 1rem;
+    }
+
+    .messages-list {
+    padding: 1rem 0rem;
+}
+
+.messages, .user-messages {
+    padding: 1rem;
+}
+
+.profile-con {
+    padding: 1rem;
+}
+}
+
+@media (max-width: 500px) {
+
+   header nav {
+        padding: 15px 1rem;
+    }
+
+    header nav ul {
+        gap: 25px;
+    }
+
+    header nav ul li a {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 435px) {
+     header nav ul {
+        gap: 23px;
+    }
+
+    header nav ul li a {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+     header nav ul {
+        gap: 20px;
+    }
+
+    header nav ul li a {
+        font-size: 0.95rem;
     }
 }
