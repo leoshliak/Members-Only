@@ -22,5 +22,15 @@
             <% } %>
         </ul>
     </nav>
+    <div class="menu-icon" role="button" aria-label="menu"><span></span></div>
 </div>
+<script>
+    const menuIcon = document.querySelector('.menu-icon');
+    const nav = document.getElementById('nav');
+
+    menuIcon.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        menuIcon.classList.toggle('active');
+    });
+</script>
 </header>
